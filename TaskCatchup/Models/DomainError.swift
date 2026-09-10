@@ -11,7 +11,7 @@ import Foundation
 /// These errors are designed to guide the human, not just crash the app.
 ///
 enum TaskCatchupError: LocalizedError, Equatable {
-    case goalAlreadyCompleted(goalTitle: String)
+    case cannotAffordPenalty(penalty: Int)
     case scheduleSyncFailed(portalName: String)  // This feature will be added for assignment 3
     case emptyGoalTitle
     case emptyScheduleTitle
@@ -20,8 +20,8 @@ enum TaskCatchupError: LocalizedError, Equatable {
     
     var errorDescription: String? {
         switch self {
-        case .goalAlreadyCompleted(let title):
-            return "You have already earned the points for '\(title)'. Untick this will cause a penalty!"
+        case .cannotAffordPenalty(let penalty):
+            return "You cannot untick this goal. You need at least \(penalty) Balance Points to cover the penalty!"
         case .scheduleSyncFailed(let portalName):
             return "Unable to pull your schedule from ..."  // Dummy
         case .emptyGoalTitle:
