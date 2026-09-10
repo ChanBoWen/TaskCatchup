@@ -1,0 +1,38 @@
+//
+//  MainTabView.swift
+//  TaskCatchup
+//
+//  Created by Bo Wen Chan on 10/9/2026.
+//
+
+import SwiftUI
+
+/// The root navigation view that connects the core features of the TaskCatchup app.
+///
+struct MainTabView: View {
+    var body: some View {
+        TabView {
+            // Tab 1
+            DailySchedulesView()
+                .tabItem {
+                    Label("Today Schedule", systemImage: "calendar")
+                }
+            
+            // Tab 2
+            DailyGoalsView()
+                .tabItem {
+                    Label("Daily Goals", systemImage: "checkmark.circle")
+                }
+            
+            // Tab 3
+            ShopView()
+                .tabItem {
+                    Label("Shop", systemImage: "cart")
+                }
+        }
+    }
+}
+
+#Preview {
+    MainTabView()
+}
