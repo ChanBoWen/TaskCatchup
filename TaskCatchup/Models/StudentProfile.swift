@@ -24,7 +24,7 @@ struct StudentProfile: Equatable {
     
     enum VoucherType: String, Equatable {
         case guiltFreeRest = "Guilt-Free Rest Day"
-        case doubleXP = "Double BP Boost"
+        case doubleBP = "Double BP Boost"
     }
     
     // Initialiser with default values

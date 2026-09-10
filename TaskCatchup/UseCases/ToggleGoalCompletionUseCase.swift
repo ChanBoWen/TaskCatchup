@@ -26,6 +26,7 @@ struct ToggleGoalCompletionUseCase {
         let otherGoals = allDailyGoals.filter { $0.id != goal.id }
         let areAllOtherGoalsCompleted = otherGoals.allSatisfy { $0.isCompleted == true }
         
+        // If the goal is not tick as completed yet
         if !goal.isCompleted {
             // Update the Goal
             updatedGoal.isCompleted = true
@@ -42,7 +43,7 @@ struct ToggleGoalCompletionUseCase {
                     updatedProfile.currentLevel += 1
                 }
             }
-            
+        // If it has already been ticked as completed
         } else {
             // Check whether enough points to decrease
             guard profile.balancePoints >= untickPenalty else {

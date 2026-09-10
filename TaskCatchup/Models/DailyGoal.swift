@@ -16,7 +16,7 @@ import Foundation
 ///
 struct DailyGoal: Identifiable, Equatable {
     let id: UUID
-    let title: String
+    var title: String
     var category: GoalCategory
     var isCompleted: Bool
     var isRecurring: Bool  // Set as one-time flexible task or daily habit
