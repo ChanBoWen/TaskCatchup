@@ -17,6 +17,7 @@ class DailyGoalsViewModel: ObservableObject {
     @Published var showError: Bool = false
     
     private let toggleGoalUseCase = ToggleGoalCompletionUseCase()
+    private let addGoalUseCase = AddNewDailyGoalUseCase()
     
     init() {
         // Dummy data for testing for now
@@ -25,8 +26,8 @@ class DailyGoalsViewModel: ObservableObject {
         self.todayGoals = [
             DailyGoal(title: "Complete Assignment 1", category: .academic, isRecurring: false, rewardPoints: 20),
             DailyGoal(title: "Study for Quiz", category: .academic, isRecurring: false, rewardPoints: 20),
-            DailyGoal(title: "Sleep 8 hours", category: .rest, isRecurring: true, rewardPoints: 10),
-            DailyGoal(title: "Exercise 1 hour", category: .sport, isRecurring: true, rewardPoints: 10)
+            DailyGoal(title: "Sleep 8 hours", category: .rest, isRecurring: true, rewardPoints: 5),
+            DailyGoal(title: "Exercise 1 hour", category: .sport, isRecurring: true, rewardPoints: 15)
         ]
     }
     
@@ -45,6 +46,25 @@ class DailyGoalsViewModel: ObservableObject {
             }
         } catch let error as TaskCatchupError {
             // Show error if cannot afford penalty
+            self.errorMessage = error.localizedDescription
+            self.showError = true
+        } catch {
+            self.errorMessage = "An unexpected error occurred."
+            self.showError = true
+        }
+    }
+    
+    // Adds a new goal to today's list
+    func addNewGoal(title: String, category: DailyGoal.GoalCategory, isRecurring: Bool) {
+        do {
+            let updatedGoals = try addGoalUseCase.execute(
+                title: title,
+                category: category,
+                isRecurring: isRecurring,
+                existingGoals: todayGoals
+            )
+            self.todayGoals = updatedGoals
+        } catch let error as TaskCatchupError {
             self.errorMessage = error.localizedDescription
             self.showError = true
         } catch {

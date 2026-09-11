@@ -12,6 +12,8 @@ import SwiftUI
 struct DailyGoalsView: View {
     @StateObject private var viewModel = DailyGoalsViewModel()
     
+    @State private var showingAddGoalForm = false
+    
     var body: some View {
         VStack(spacing: 30) {
             // Top bar
@@ -54,13 +56,27 @@ struct DailyGoalsView: View {
             }
             .padding(.top)
             .padding(.horizontal)
-
+            
             Spacer()
             
             // Header
-            Text("My Today's Goals")
-                .font(.title)
-                .fontWeight(.bold)
+            HStack {
+                Text("My Today's Goals")
+                    .font(.title)
+                    .fontWeight(.bold)
+                
+                Spacer()
+                
+                // Add new goals button
+                Button(action: {
+                    showingAddGoalForm = true
+                }) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.title)
+                        .foregroundColor(.blue)
+                }
+            }
+            .padding(.horizontal)
             
             // Daily goals list
             ScrollView {
@@ -78,7 +94,7 @@ struct DailyGoalsView: View {
                             
                             // Goal title
                             Text(goal.title)
-                                // Strikethrough if tick completed
+                            // Strikethrough if tick completed
                                 .strikethrough(goal.isCompleted, color: .gray)
                                 .font(.headline)
                                 .foregroundColor(goal.isCompleted ? .gray : .primary)
@@ -109,6 +125,10 @@ struct DailyGoalsView: View {
                 message: Text(viewModel.errorMessage ?? "An unknown error occurred!"),
                 dismissButton: .default(Text("Got it"))
             )
+        }
+        // Opens the add goal form
+        .sheet(isPresented: $showingAddGoalForm) {
+            AddNewGoalView(viewModel: viewModel, isPresented: $showingAddGoalForm)
         }
     }
 }
