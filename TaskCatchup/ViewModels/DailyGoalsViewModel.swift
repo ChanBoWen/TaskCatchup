@@ -12,7 +12,7 @@ import Combine
 ///
 class DailyGoalsViewModel: ObservableObject {
     @Published var profile: StudentProfile
-    @Published var todayGoals: [DailyGoal]
+    @Published var todayGoals: [DailyGoal] = []
     @Published var errorMessage: String?
     @Published var showError: Bool = false
     
@@ -20,16 +20,20 @@ class DailyGoalsViewModel: ObservableObject {
     private let addGoalUseCase = AddNewDailyGoalUseCase()
     private let removeGoalUseCase = RemoveDailyGoalUseCase()
     
-    init() {
-        // Dummy data for testing for now
+    let repository: GoalRepository
+        
+    init(repository: GoalRepository = JSONGoalRepository()) {
+        self.repository = repository
+        
+        // Profile dummy data for now
         self.profile = StudentProfile(name: "Alex", balancePoints: 40, lifetimeXP: 80, currentLevel: 1, dailyStreak: 2)
         
-        self.todayGoals = [
-            DailyGoal(title: "Complete Assignment 1", category: .academic, isRecurring: false, rewardPoints: 20),
-            DailyGoal(title: "Study for Quiz", category: .academic, isRecurring: false, rewardPoints: 20),
-            DailyGoal(title: "Sleep 8 hours", category: .rest, isRecurring: true, rewardPoints: 5),
-            DailyGoal(title: "Exercise 1 hour", category: .sport, isRecurring: true, rewardPoints: 15)
-        ]
+        load()
+    }
+    
+    // Load the goals from the JSON hard drive file
+    func load() {
+        self.todayGoals = repository.fetchGoals()
     }
     
     // Toggles the completion status of a goal and updates the student's profile
@@ -41,10 +45,12 @@ class DailyGoalsViewModel: ObservableObject {
             // Update the profile
             self.profile = result.updatedProfile
             
-            // Update the goal
-            if let index = todayGoals.firstIndex(where: { $0.id == goal.id }) {
-                todayGoals[index] = result.updatedGoal
-            }
+            // Update to the database
+            try? repository.updateGoal(result.updatedGoal)
+            
+            // Reload from the database
+            load()
+            
         } catch let error as TaskCatchupError {
             // Show error if cannot afford penalty
             self.errorMessage = error.localizedDescription
@@ -64,7 +70,15 @@ class DailyGoalsViewModel: ObservableObject {
                 isRecurring: isRecurring,
                 existingGoals: todayGoals
             )
-            self.todayGoals = updatedGoals
+            
+            // Save the newest goal to the database
+            if let newestGoal = updatedGoals.last {
+                try? repository.addGoal(newestGoal)
+            }
+            
+            // Reload from the database
+            load()
+            
         } catch let error as TaskCatchupError {
             self.errorMessage = error.localizedDescription
             self.showError = true
@@ -79,8 +93,14 @@ class DailyGoalsViewModel: ObservableObject {
         do {
             let result = try removeGoalUseCase.execute(goal: goal, profile: profile, existingGoals: todayGoals)
             self.profile = result.updatedProfile
-            self.todayGoals = result.updatedGoals
-        // Show error if cannot afford penalty
+            
+            // Delete from the database
+            try? repository.deleteGoal(goal)
+            
+            // Reload from the database
+            load()
+            
+            // Show error if cannot afford penalty
         } catch let error as TaskCatchupError {
             self.errorMessage = error.localizedDescription
             self.showError = true

@@ -14,7 +14,7 @@ import Foundation
 /// 2. Completing a goal awards the student Balance Points (similar as an XP)
 /// 3. Goals can be one-off tasks or recurring daily habits.
 ///
-struct DailyGoal: Identifiable, Equatable {
+struct DailyGoal: Identifiable, Equatable, Codable {
     let id: UUID
     var title: String
     var category: GoalCategory
@@ -22,7 +22,7 @@ struct DailyGoal: Identifiable, Equatable {
     var isRecurring: Bool  // Set as one-time flexible task or daily habit
     var rewardPoints: Int  // The amount of Balance Points awarded upon successful completion
     
-    enum GoalCategory: String, CaseIterable {
+    enum GoalCategory: String, CaseIterable, Codable {
         case academic = "Academic"
         case work = "Work"
         case sport = "Sport"
