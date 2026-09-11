@@ -31,8 +31,9 @@ struct ToggleGoalCompletionUseCase {
             // Update the Goal
             updatedGoal.isCompleted = true
             
-            // Add points
+            // Add points and XP
             updatedProfile.balancePoints += goal.rewardPoints
+            updatedProfile.lifetimeXP += goal.rewardPoints
             
             if areAllOtherGoalsCompleted {
                 // If every other goal was done, completing this one finishes the day

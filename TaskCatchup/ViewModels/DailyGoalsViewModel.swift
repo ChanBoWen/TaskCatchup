@@ -22,7 +22,7 @@ class DailyGoalsViewModel: ObservableObject {
     
     init() {
         // Dummy data for testing for now
-        self.profile = StudentProfile(name: "Alex", balancePoints: 40, currentLevel: 1, dailyStreak: 2)
+        self.profile = StudentProfile(name: "Alex", balancePoints: 40, lifetimeXP: 80, currentLevel: 1, dailyStreak: 2)
         
         self.todayGoals = [
             DailyGoal(title: "Complete Assignment 1", category: .academic, isRecurring: false, rewardPoints: 20),

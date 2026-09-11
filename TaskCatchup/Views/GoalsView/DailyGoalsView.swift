@@ -49,7 +49,7 @@ struct DailyGoalsView: View {
                         .foregroundColor(.orange)
                     
                     // Level progress bar
-                    ProgressView(value: Double(viewModel.profile.balancePoints % 100), total: 100)
+                    ProgressView(value: Double(viewModel.profile.lifetimeXP % 100), total: 100)
                         .tint(.orange)
                         .scaleEffect(x: 1.0, y: 1.5, anchor: .center)
                         .padding(.top, 4)
