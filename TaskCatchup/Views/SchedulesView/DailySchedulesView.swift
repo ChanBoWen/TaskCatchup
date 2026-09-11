@@ -13,6 +13,7 @@ struct DailySchedulesView: View {
     @StateObject private var viewModel = DailySchedulesViewModel()
     
     @State private var showingAddEventForm = false
+    @State private var eventToDelete: DailySchedule? = nil
     
     var body: some View {
         VStack(spacing: 30) {
@@ -58,7 +59,19 @@ struct DailySchedulesView: View {
                                     .font(.caption)
                                     .foregroundColor(.gray)
                             }
+                            
                             Spacer()
+                            
+                            // Delete event button
+                            Button(action: {
+                                eventToDelete = event
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red.opacity(0.8))
+                                    .font(.title3)
+                                    .padding(.leading)
+                            }
+                            .buttonStyle(.plain)
                         }
                         .padding()
                         .background(Color.blue.opacity(0.1))
@@ -81,6 +94,25 @@ struct DailySchedulesView: View {
         // Opens the add event sheet
         .sheet(isPresented: $showingAddEventForm) {
             AddNewScheduleView(viewModel: viewModel, isPresented: $showingAddEventForm)
+        }
+        
+        // Opens the delete confirmation
+        .alert("Delete Event?", isPresented: Binding(
+            get: { eventToDelete != nil },
+            set: { if !$0 { eventToDelete = nil } }
+        )
+        ) {
+            Button("Delete this Event", role: .destructive) {
+                if let event = eventToDelete {
+                    viewModel.removeEvent(event)
+                }
+                eventToDelete = nil
+            }
+            Button("Cancel", role: .cancel) {
+                eventToDelete = nil
+            }
+        } message: {
+            Text("Are you sure you want to remove this event from your schedule?")
         }
     }
 }

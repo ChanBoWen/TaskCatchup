@@ -44,4 +44,9 @@ class DailySchedulesViewModel: ObservableObject {
             self.showError = true
         }
     }
+    
+    // Removes a scheduled event
+    func removeEvent(_ event: DailySchedule) {
+        todaySchedule.removeAll { $0.id == event.id }
+    }
 }
