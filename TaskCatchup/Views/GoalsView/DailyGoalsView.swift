@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Displays the student's  daily goals.
+/// Displays the student's daily goals.
 ///
 struct DailyGoalsView: View {
     @StateObject private var viewModel = DailyGoalsViewModel()
@@ -19,45 +19,7 @@ struct DailyGoalsView: View {
     var body: some View {
         VStack(spacing: 30) {
             // Top bar
-            VStack(spacing: 20) {
-                // App's title
-                HStack {
-                    Spacer()
-                    Text("TaskCatchup")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    
-                    Spacer()
-                }
-                // Profile picture
-                .overlay(
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .foregroundColor(.blue),
-                    alignment: .trailing
-                )
-                
-                VStack(spacing: 10) {
-                    Text("My Progress")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    // Current level
-                    Text("Level \(viewModel.profile.currentLevel) ⭐️")
-                        .font(.headline)
-                        .foregroundColor(.orange)
-                    
-                    // Level progress bar
-                    ProgressView(value: Double(viewModel.profile.lifetimeXP % 100), total: 100)
-                        .tint(.orange)
-                        .scaleEffect(x: 1.0, y: 1.5, anchor: .center)
-                        .padding(.top, 4)
-                        .padding(.horizontal, 40)
-                }
-            }
-            .padding(.top)
-            .padding(.horizontal)
+            TopBarView(profile: viewModel.profile)
             
             Spacer()
             
