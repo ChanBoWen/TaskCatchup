@@ -31,7 +31,7 @@ struct DailyGoalsView: View {
                 
                 Spacer()
                 
-                // Add new goals button
+                // Add new goal button
                 Button(action: {
                     showingAddGoalForm = true
                 }) {

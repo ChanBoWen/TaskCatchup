@@ -47,36 +47,13 @@ struct DailySchedulesView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     ForEach(viewModel.todaySchedule) { event in
-                        HStack {
-                            Text(event.startTime, style: .time)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            
-                            VStack(alignment: .leading) {
-                                Text(event.title)
-                                    .font(.headline)
-                                Text(event.category.rawValue)
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                            }
-                            
-                            Spacer()
-                            
-                            // Delete event button
-                            Button(action: {
+                        // Extracted scheduled event row view
+                        DailyScheduleRowView(
+                            event: event,
+                            onDelete: {
                                 eventToDelete = event
-                            }) {
-                                Image(systemName: "trash")
-                                    .foregroundColor(.red.opacity(0.8))
-                                    .font(.title3)
-                                    .padding(.leading)
                             }
-                            .buttonStyle(.plain)
-                        }
-                        .padding()
-                        .background(Color.blue.opacity(0.1))
-                        .cornerRadius(8)
-                        .padding(.horizontal)
+                        )
                     }
                 }
                 .padding(.bottom, 20)
