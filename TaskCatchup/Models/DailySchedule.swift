@@ -13,14 +13,14 @@ import Foundation
 /// 1. A manual schedule must have a specific start time and end time.
 /// 2. It helps the system calculate how much "free time" the user has to complete their flexible goals.
 /// 
-struct DailySchedule: Identifiable, Equatable {
+struct DailySchedule: Identifiable, Equatable, Codable {
     let id: UUID
     var title: String
     var startTime: Date  // The exact date and time the scheduled event begins
     var endTime: Date  // The exact date and time the scheduled event concludes
     var category: ScheduleCategory
     
-    enum ScheduleCategory: String, CaseIterable {
+    enum ScheduleCategory: String, CaseIterable, Codable {
         case academic = "Academic"
         case work = "Work"
         case sport = "Sport"
