@@ -33,7 +33,7 @@ struct TopBarView: View {
                 alignment: .trailing
             )
             
-            // Progress Section
+            // Progress section
             VStack(spacing: 10) {
                 Text("My Progress")
                     .font(.title2)
@@ -50,6 +50,28 @@ struct TopBarView: View {
                     .scaleEffect(x: 1.0, y: 1.5, anchor: .center)
                     .padding(.top, 4)
                     .padding(.horizontal, 40)
+                
+                HStack(spacing: 100) {
+                    // Show daily streak
+                    HStack(spacing: 8) {
+                        Image(systemName: "flame.fill")
+                            .foregroundColor(.red)
+                        Text("\(profile.dailyStreak) Days")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                    }
+                    
+                    // Show total amount of balance points
+                    HStack(spacing: 8) {
+                        Image(systemName: "banknote.fill")
+                            .foregroundColor(.green)
+                        Text("\(profile.balancePoints) BP")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                    }
+                }
+                .padding(.horizontal, 40)
+                .padding(.top, 8)
             }
         }
         .padding(.top)
