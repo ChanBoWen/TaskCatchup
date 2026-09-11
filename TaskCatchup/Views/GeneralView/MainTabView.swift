@@ -25,9 +25,9 @@ struct MainTabView: View {
                 }
             
             // Tab 3
-            ShopView()
+            RedeemItemView()
                 .tabItem {
-                    Label("Shop", systemImage: "cart")
+                    Label("Redeem", systemImage: "cart")
                 }
         }
     }

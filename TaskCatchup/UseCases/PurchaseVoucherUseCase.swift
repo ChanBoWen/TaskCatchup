@@ -14,7 +14,6 @@ import Foundation
 ///
 struct PurchaseVoucherUseCase {
     func execute(voucher: StudentProfile.VoucherType, cost: Int, profile: StudentProfile) throws -> StudentProfile {
-        
         // Check if the user can buy it
         guard profile.balancePoints >= cost else {
             // Calculate the exact shortage so user knows how much they lack

@@ -24,7 +24,7 @@ struct DailySchedulesView: View {
             
             // Header
             HStack {
-                Text("Today's Schedule")
+                Text("My Today's Schedule")
                     .font(.title)
                     .fontWeight(.bold)
                 
