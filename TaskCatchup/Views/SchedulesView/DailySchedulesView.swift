@@ -12,6 +12,8 @@ import SwiftUI
 struct DailySchedulesView: View {
     @StateObject private var viewModel = DailySchedulesViewModel()
     
+    @State private var showingAddEventForm = false
+    
     var body: some View {
         VStack(spacing: 30) {
             // Top bar
@@ -29,7 +31,7 @@ struct DailySchedulesView: View {
                 
                 // Add new event button
                 Button(action: {
-                    // Action coming soon
+                    showingAddEventForm = true
                 }) {
                     Image(systemName: "plus.circle.fill")
                         .font(.title)
@@ -74,6 +76,11 @@ struct DailySchedulesView: View {
                 message: Text(viewModel.errorMessage ?? "An unknown error occurred!"),
                 dismissButton: .default(Text("Got it"))
             )
+        }
+        
+        // Opens the add event sheet
+        .sheet(isPresented: $showingAddEventForm) {
+            AddNewScheduleView(viewModel: viewModel, isPresented: $showingAddEventForm)
         }
     }
 }
