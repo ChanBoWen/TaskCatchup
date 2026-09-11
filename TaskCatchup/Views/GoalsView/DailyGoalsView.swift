@@ -14,6 +14,7 @@ struct DailyGoalsView: View {
     
     @State private var showingAddGoalForm = false
     @State private var goalToDelete: DailyGoal? = nil
+    @State private var goalToUntick: DailyGoal? = nil
     
     var body: some View {
         VStack(spacing: 30) {
@@ -88,7 +89,15 @@ struct DailyGoalsView: View {
                         // Extracted goal row view
                         DailyGoalRowView(
                             goal: goal,
-                            onToggle: { viewModel.toggleGoal(goal) },
+                            onToggle: {
+                                // Check whther if the goal has already been ticked
+                                if goal.isCompleted {
+                                    goalToUntick = goal
+                                } else {
+                                    // Ask confirmation
+                                    viewModel.toggleGoal(goal)
+                                }
+                            },
                             onDelete: {
                                 goalToDelete = goal
                             }
@@ -107,16 +116,16 @@ struct DailyGoalsView: View {
             )
         }
         
-        // Opens the add goal form
+        // Opens the add goal sheet
         .sheet(isPresented: $showingAddGoalForm) {
             AddNewGoalView(viewModel: viewModel, isPresented: $showingAddGoalForm)
         }
         
         // Opens the delete confirmation
         .alert("Delete Goal?", isPresented: Binding(
-                get: { goalToDelete != nil },
-                set: { if !$0 { goalToDelete = nil } }
-            )
+            get: { goalToDelete != nil },
+            set: { if !$0 { goalToDelete = nil } }
+        )
         ) {
             Button("Delete this Goal", role: .destructive) {
                 if let goal = goalToDelete {
@@ -129,6 +138,25 @@ struct DailyGoalsView: View {
             }
         } message: {
             Text("Are you sure? Deleting a goal incurs a 20 BP penalty.")
+        }
+        
+        // Opens the untick confirmation
+        .alert("Untick Goal?", isPresented: Binding(
+            get: { goalToUntick != nil },
+            set: { if !$0 { goalToUntick = nil } }
+        )
+        ) {
+            Button("Untick this Goal", role: .destructive) {
+                if let goal = goalToUntick {
+                    viewModel.toggleGoal(goal)
+                }
+                goalToUntick = nil
+            }
+            Button("Cancel", role: .cancel) {
+                goalToUntick = nil
+            }
+        } message: {
+            Text("Are you sure? Unticking a completed goal incurs a 20 BP penalty.")
         }
     }
 }

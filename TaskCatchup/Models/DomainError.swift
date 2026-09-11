@@ -21,7 +21,7 @@ enum TaskCatchupError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .cannotAffordPenalty(let penalty):
-            return "You cannot untick this goal. You need at least \(penalty) Balance Points to cover the penalty!"
+            return "You cannot perform this action right now. You need at least \(penalty) Balance Points to cover the penalty!"
         case .scheduleSyncFailed(let portalName):
             return "Unable to pull your schedule from ..."  // Dummy
         case .emptyGoalTitle:
