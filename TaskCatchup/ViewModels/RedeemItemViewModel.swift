@@ -19,7 +19,7 @@ class RedeemItemViewModel: ObservableObject {
     private let purchaseUseCase = PurchaseVoucherUseCase()
     
     init() {
-        // // Dummy data for testing for now
+        // Dummy data for testing for now
         self.profile = StudentProfile(name: "Alex", balancePoints: 40, lifetimeXP: 180, currentLevel: 2, dailyStreak: 5)
     }
     
