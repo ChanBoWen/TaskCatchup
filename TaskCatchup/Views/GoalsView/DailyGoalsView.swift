@@ -13,6 +13,7 @@ struct DailyGoalsView: View {
     @StateObject private var viewModel = DailyGoalsViewModel()
     
     @State private var showingAddGoalForm = false
+    @State private var goalToDelete: DailyGoal? = nil
     
     var body: some View {
         VStack(spacing: 30) {
@@ -75,47 +76,26 @@ struct DailyGoalsView: View {
                         .font(.title)
                         .foregroundColor(.blue)
                 }
+                .buttonStyle(.plain)
             }
             .padding(.horizontal)
+            .padding(.bottom, 5)
             
             // Daily goals list
             ScrollView {
                 VStack(spacing: 20) {
                     ForEach(viewModel.todayGoals) { goal in
-                        HStack {
-                            // Checkbox button
-                            Button(action: {
-                                viewModel.toggleGoal(goal)
-                            }) {
-                                Image(systemName: goal.isCompleted ? "checkmark.square.fill" : "square")
-                                    .foregroundColor(goal.isCompleted ? .green : .gray)
-                                    .font(.title2)
+                        // Extracted goal row view
+                        DailyGoalRowView(
+                            goal: goal,
+                            onToggle: { viewModel.toggleGoal(goal) },
+                            onDelete: {
+                                goalToDelete = goal
                             }
-                            
-                            // Goal title
-                            Text(goal.title)
-                            // Strikethrough if tick completed
-                                .strikethrough(goal.isCompleted, color: .gray)
-                                .font(.headline)
-                                .foregroundColor(goal.isCompleted ? .gray : .primary)
-                            
-                            Spacer()
-                            
-                            // Reward points
-                            Text("+\(goal.rewardPoints) points")
-                                .font(.caption)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.gray, lineWidth: 1)
-                                )
-                                .foregroundColor(goal.isCompleted ? .gray : .primary)
-                        }
-                        .padding(.horizontal)
+                        )
                     }
                 }
+                .padding(.bottom, 20)
             }
         }
         // Shows domain errors
@@ -126,9 +106,29 @@ struct DailyGoalsView: View {
                 dismissButton: .default(Text("Got it"))
             )
         }
+        
         // Opens the add goal form
         .sheet(isPresented: $showingAddGoalForm) {
             AddNewGoalView(viewModel: viewModel, isPresented: $showingAddGoalForm)
+        }
+        
+        // Opens the delete confirmation
+        .alert("Delete Goal?", isPresented: Binding(
+                get: { goalToDelete != nil },
+                set: { if !$0 { goalToDelete = nil } }
+            )
+        ) {
+            Button("Delete this Goal", role: .destructive) {
+                if let goal = goalToDelete {
+                    viewModel.removeGoal(goal)
+                }
+                goalToDelete = nil
+            }
+            Button("Cancel", role: .cancel) {
+                goalToDelete = nil
+            }
+        } message: {
+            Text("Are you sure? Deleting a goal incurs a 20 BP penalty.")
         }
     }
 }

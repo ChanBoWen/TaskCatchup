@@ -18,6 +18,7 @@ class DailyGoalsViewModel: ObservableObject {
     
     private let toggleGoalUseCase = ToggleGoalCompletionUseCase()
     private let addGoalUseCase = AddNewDailyGoalUseCase()
+    private let removeGoalUseCase = RemoveDailyGoalUseCase()
     
     init() {
         // Dummy data for testing for now
@@ -64,6 +65,22 @@ class DailyGoalsViewModel: ObservableObject {
                 existingGoals: todayGoals
             )
             self.todayGoals = updatedGoals
+        } catch let error as TaskCatchupError {
+            self.errorMessage = error.localizedDescription
+            self.showError = true
+        } catch {
+            self.errorMessage = "An unexpected error occurred."
+            self.showError = true
+        }
+    }
+    
+    // Removes a goal and applies the penalty
+    func removeGoal(_ goal: DailyGoal) {
+        do {
+            let result = try removeGoalUseCase.execute(goal: goal, profile: profile, existingGoals: todayGoals)
+            self.profile = result.updatedProfile
+            self.todayGoals = result.updatedGoals
+        // Show error if cannot afford penalty
         } catch let error as TaskCatchupError {
             self.errorMessage = error.localizedDescription
             self.showError = true
