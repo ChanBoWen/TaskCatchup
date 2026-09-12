@@ -79,6 +79,21 @@ struct ProfileView: View {
                     }
                     
                     Spacer()
+                    
+                    // Button to navigate to Settings
+                    NavigationLink(destination: SettingsView()) {
+                        HStack {
+                            Image(systemName: "gearshape")
+                            Text("Settings")
+                        }
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.15))
+                        .cornerRadius(12)
+                        .padding(.horizontal)
+                    }
                 }
             }
             .toolbar {
