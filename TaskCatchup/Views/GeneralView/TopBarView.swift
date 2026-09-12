@@ -13,6 +13,8 @@ import SwiftUI
 struct TopBarView: View {
     let profile: StudentProfile
     
+    @State private var showingProfile = false
+    
     var body: some View {
         VStack(spacing: 20) {
             // App's title
@@ -24,12 +26,16 @@ struct TopBarView: View {
                 
                 Spacer()
             }
-            // Profile picture
+            // Clickable profile picture
             .overlay(
-                Image(systemName: "person.crop.circle")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-                    .foregroundColor(.blue),
+                Button(action: {
+                    showingProfile = true
+                }) {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .foregroundColor(.blue)
+                },
                 alignment: .trailing
             )
             
@@ -76,5 +82,10 @@ struct TopBarView: View {
         }
         .padding(.top)
         .padding(.horizontal)
+        
+        // Opens the Profile View as a sheet
+        .sheet(isPresented: $showingProfile) {
+            ProfileView(profile: profile)
+        }
     }
 }
