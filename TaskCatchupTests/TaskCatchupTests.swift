@@ -7,6 +7,7 @@
 
 import Testing
 @testable import TaskCatchup
+import Foundation
 
 struct TaskCatchupTests {
     
@@ -86,7 +87,7 @@ struct TaskCatchupTests {
         // Use the mock repo
         let mockRepo = LocalGoalRepository()
         
-        // Starts with 4 dummy goals
+        // Starts with dummy goals
         let initialGoalCount = mockRepo.fetchGoals().count
         
         let viewModel = DailyGoalsViewModel(repository: mockRepo)
@@ -100,5 +101,60 @@ struct TaskCatchupTests {
         let savedGoals = mockRepo.fetchGoals()
         #expect(savedGoals.count == initialGoalCount + 1)
         #expect(savedGoals.last?.title == "Pass Assignment 2")
+    }
+    
+    // ScheduleNewEventUseCase Tests
+    @Test func test_scheduleEvent_fails_whenTitleIsEmpty() {
+        let useCase = ScheduleNewEventUseCase()
+        
+        // Try to schedule an event with just spaces
+        let newEvent = DailySchedule(title: "   ", startTime: Date(), endTime: Date().addingTimeInterval(3600), category: .academic)
+        
+        // Assert that it throws the expected domain error
+        #expect(throws: TaskCatchupError.emptyScheduleTitle) {
+            try useCase.execute(newEvent: newEvent, existingSchedule: [])
+        }
+    }
+    
+    // ScheduleNewEventUseCase Tests
+    @Test func test_scheduleEvent_fails_whenTimeConflicts() {
+        let useCase = ScheduleNewEventUseCase()
+        let baseTime = Date()
+        
+        // Existing event that has been set
+        let existingEvent = DailySchedule(title: "Math Class", startTime: baseTime, endTime: baseTime.addingTimeInterval(3600), category: .academic)
+        
+        // Try to set an overlapping event
+        let overlappingEvent = DailySchedule(title: "Work Shift", startTime: baseTime.addingTimeInterval(1800), endTime: baseTime.addingTimeInterval(5400), category: .work)
+        
+        // Assert that it throws the expected domain error
+        #expect(throws: TaskCatchupError.scheduleConflict) {
+            try useCase.execute(newEvent: overlappingEvent, existingSchedule: [existingEvent])
+        }
+    }
+    
+    // ScheduleNewEventUseCase to repository Tests
+    @MainActor
+    @Test func test_addsSchedule_toRepository() {
+        // Use the mock repo
+        let mockRepo = LocalScheduleRepository()
+        
+        // Starts with dummy scheduled events
+        let initialCount = mockRepo.fetchSchedules().count
+        
+        let viewModel = DailySchedulesViewModel(repository: mockRepo)
+        
+        // Schedule a future event
+        let futureStart = Date().addingTimeInterval(86400 * 10)
+        let futureEnd = futureStart.addingTimeInterval(3600)
+        
+        // User set a new event
+        viewModel.addEvent(title: "Future Exam", startTime: futureStart, endTime: futureEnd, category: .academic)
+        
+        #expect(viewModel.todaySchedule.count == initialCount + 1)
+        
+        let savedSchedules = mockRepo.fetchSchedules()
+        #expect(savedSchedules.count == initialCount + 1)
+        #expect(savedSchedules.contains(where: { $0.title == "Future Exam" }))
     }
 }
