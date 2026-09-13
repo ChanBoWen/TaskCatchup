@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// A reusable view representing a single scheduled event on the daily timeline.
-/// Includes the delete button
+/// Includes the delete button.
 ///
 struct DailyScheduleRowView: View {
     let event: DailySchedule

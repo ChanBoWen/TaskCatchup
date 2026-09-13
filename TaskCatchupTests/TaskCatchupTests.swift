@@ -32,8 +32,8 @@ struct TaskCatchupTests {
         let result = try useCase.execute(goal: goal, profile: profile, allDailyGoals: [goal])
         
         #expect(result.updatedGoal.isCompleted == true)
-        #expect(result.updatedProfile.balancePoints == 30)  // Plus 20
-        #expect(result.updatedProfile.lifetimeXP == 40)  // Plus 20
+        #expect(result.updatedProfile.balancePoints == 30)  // If plus 20 successfully
+        #expect(result.updatedProfile.lifetimeXP == 40)  // If plus 20 successfully
     }
     
     // ToggleGoalCompletionUseCase Tests
@@ -41,7 +41,7 @@ struct TaskCatchupTests {
         let useCase = ToggleGoalCompletionUseCase()
         
         // Sample data for testing
-        // Set as completed, and 0 BP
+        // Set as completed, and 0 BP to test
         let profile = StudentProfile(name: "Alex", balancePoints: 0, lifetimeXP: 100, currentLevel: 2, dailyStreak: 1)
         var completedGoal = DailyGoal(title: "Read Book", category: .academic, isRecurring: false, rewardPoints: 20)
         completedGoal.isCompleted = true

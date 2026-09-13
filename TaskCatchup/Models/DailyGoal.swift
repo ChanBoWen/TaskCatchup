@@ -11,7 +11,7 @@ import Foundation
 ///
 /// **Business Rules:**
 /// 1. A goal must belong to a specific category, such as Academic, Work, Sport, Social, or Rest
-/// 2. Completing a goal awards the student Balance Points (similar as an XP)
+/// 2. Completing a goal awards the student Balance Points and XP
 /// 3. Goals can be one-off tasks or recurring daily habits.
 ///
 struct DailyGoal: Identifiable, Equatable, Codable {
@@ -20,7 +20,7 @@ struct DailyGoal: Identifiable, Equatable, Codable {
     var category: GoalCategory
     var isCompleted: Bool
     var isRecurring: Bool  // Set as one-time flexible task or daily habit
-    var rewardPoints: Int  // The amount of Balance Points awarded upon successful completion
+    var rewardPoints: Int  // The amount of Balance Points and XP awarded upon successful completion
     
     enum GoalCategory: String, CaseIterable, Codable {
         case academic = "Academic"
@@ -28,7 +28,6 @@ struct DailyGoal: Identifiable, Equatable, Codable {
         case sport = "Sport"
         case social = "Social"
         case rest = "Rest"
-        
     }
     
     // Initialiser with default values

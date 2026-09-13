@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// A reusable view representing a single row in the Daily Goals list.
-/// Includes the checkbox button and delete button
+/// Includes the checkbox button and delete button.
 ///
 struct DailyGoalRowView: View {
     let goal: DailyGoal

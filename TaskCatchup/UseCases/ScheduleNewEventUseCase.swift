@@ -8,7 +8,7 @@
 import Foundation
 
 /// **Business Rules:**
-/// 1. An event must have a valid title.
+/// 1. An event must have a valid, non-empty title.
 /// 2. An event cannot overlap with an existing scheduled event.
 ///
 struct ScheduleNewEventUseCase {
@@ -23,6 +23,7 @@ struct ScheduleNewEventUseCase {
             return newEvent.startTime < existingEvent.endTime && newEvent.endTime > existingEvent.startTime
         }
         
+        // Throws an error if time conflicted
         guard !hasConflict else {
             throw TaskCatchupError.scheduleConflict
         }

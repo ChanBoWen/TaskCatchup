@@ -100,7 +100,7 @@ class DailyGoalsViewModel: ObservableObject {
             // Reload from the database
             load()
             
-            // Show error if cannot afford penalty
+        // Show error if cannot afford penalty
         } catch let error as TaskCatchupError {
             self.errorMessage = error.localizedDescription
             self.showError = true

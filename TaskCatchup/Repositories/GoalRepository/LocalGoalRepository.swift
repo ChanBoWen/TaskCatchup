@@ -8,6 +8,7 @@
 import Foundation
 
 /// A mock repository for testing
+/// 
 class LocalGoalRepository: GoalRepository {
     private var goals: [DailyGoal] = [
         DailyGoal(title: "Complete Assignment 1", category: .academic, isRecurring: false, rewardPoints: 20),

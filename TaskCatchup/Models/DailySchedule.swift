@@ -11,7 +11,6 @@ import Foundation
 ///
 /// **Business Rules:**
 /// 1. A manual schedule must have a specific start time and end time.
-/// 2. It helps the system calculate how much "free time" the user has to complete their flexible goals.
 /// 
 struct DailySchedule: Identifiable, Equatable, Codable {
     let id: UUID
@@ -26,7 +25,6 @@ struct DailySchedule: Identifiable, Equatable, Codable {
         case sport = "Sport"
         case social = "Social"
         case rest = "Rest"
-        
     }
     
     // Initialiser with default values

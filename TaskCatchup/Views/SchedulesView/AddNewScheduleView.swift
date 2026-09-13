@@ -62,6 +62,7 @@ struct AddNewScheduleView: View {
                     }
                 }
             )
+            
             // Shows domain errors
             .alert("Whoops!", isPresented: $viewModel.showError) {
                 Button("Got it", role: .cancel) { }

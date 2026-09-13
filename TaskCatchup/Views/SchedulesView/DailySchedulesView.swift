@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Displays the student's daily scheduled events
+/// Displays the student's daily scheduled events.
 ///
 struct DailySchedulesView: View {
     @StateObject private var viewModel = DailySchedulesViewModel()

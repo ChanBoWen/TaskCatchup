@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-///
 /// Further implementation will be In Assignment 3.
 ///
 struct SettingsView: View {

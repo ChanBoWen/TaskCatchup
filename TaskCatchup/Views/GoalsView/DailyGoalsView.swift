@@ -56,7 +56,7 @@ struct DailyGoalsView: View {
                                 if goal.isCompleted {
                                     goalToUntick = goal
                                 } else {
-                                    // Ask confirmation
+                                    // Ask confirmation to untick
                                     viewModel.toggleGoal(goal)
                                 }
                             },

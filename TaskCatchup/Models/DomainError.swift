@@ -12,7 +12,7 @@ import Foundation
 ///
 enum TaskCatchupError: LocalizedError, Equatable {
     case cannotAffordPenalty(penalty: Int)
-    case scheduleSyncFailed(portalName: String)  // This feature will be added for assignment 3 (API Calling)
+    case scheduleSyncFailed(portalName: String)  // This feature will be added in assignment 3 (API Calling)
     case emptyGoalTitle
     case emptyScheduleTitle
     case insufficientBalance(shortage: Int)

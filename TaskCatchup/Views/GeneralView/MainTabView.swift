@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// The root navigation view that connects the core features of the TaskCatchup app.
+/// The root navigation view that connects the screens of the TaskCatchup app.
 ///
 struct MainTabView: View {
     var body: some View {
