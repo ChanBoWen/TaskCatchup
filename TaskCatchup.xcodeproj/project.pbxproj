@@ -14,19 +14,11 @@
 			remoteGlobalIDString = 8227FE733052968B004F73BC;
 			remoteInfo = TaskCatchup;
 		};
-		8227FE8C3052968C004F73BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8227FE6C3052968B004F73BC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8227FE733052968B004F73BC;
-			remoteInfo = TaskCatchup;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8227FE743052968B004F73BC /* TaskCatchup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskCatchup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8227FE813052968C004F73BC /* TaskCatchupTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskCatchupTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8227FE8B3052968C004F73BC /* TaskCatchupUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskCatchupUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -57,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8227FE883052968C004F73BC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -81,7 +66,6 @@
 			children = (
 				8227FE743052968B004F73BC /* TaskCatchup.app */,
 				8227FE813052968C004F73BC /* TaskCatchupTests.xctest */,
-				8227FE8B3052968C004F73BC /* TaskCatchupUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,26 +118,6 @@
 			productReference = 8227FE813052968C004F73BC /* TaskCatchupTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8227FE8A3052968C004F73BC /* TaskCatchupUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8227FE9B3052968C004F73BC /* Build configuration list for PBXNativeTarget "TaskCatchupUITests" */;
-			buildPhases = (
-				8227FE873052968C004F73BC /* Sources */,
-				8227FE883052968C004F73BC /* Frameworks */,
-				8227FE893052968C004F73BC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8227FE8D3052968C004F73BC /* PBXTargetDependency */,
-			);
-			name = TaskCatchupUITests;
-			packageProductDependencies = (
-			);
-			productName = TaskCatchupUITests;
-			productReference = 8227FE8B3052968C004F73BC /* TaskCatchupUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -168,10 +132,6 @@
 						CreatedOnToolsVersion = 26.6;
 					};
 					8227FE803052968C004F73BC = {
-						CreatedOnToolsVersion = 26.6;
-						TestTargetID = 8227FE733052968B004F73BC;
-					};
-					8227FE8A3052968C004F73BC = {
 						CreatedOnToolsVersion = 26.6;
 						TestTargetID = 8227FE733052968B004F73BC;
 					};
@@ -193,7 +153,6 @@
 			targets = (
 				8227FE733052968B004F73BC /* TaskCatchup */,
 				8227FE803052968C004F73BC /* TaskCatchupTests */,
-				8227FE8A3052968C004F73BC /* TaskCatchupUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -207,13 +166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8227FE7F3052968C004F73BC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8227FE893052968C004F73BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -237,13 +189,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8227FE873052968C004F73BC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -251,11 +196,6 @@
 			isa = PBXTargetDependency;
 			target = 8227FE733052968B004F73BC /* TaskCatchup */;
 			targetProxy = 8227FE823052968C004F73BC /* PBXContainerItemProxy */;
-		};
-		8227FE8D3052968C004F73BC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8227FE733052968B004F73BC /* TaskCatchup */;
-			targetProxy = 8227FE8C3052968C004F73BC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -483,44 +423,6 @@
 			};
 			name = Release;
 		};
-		8227FE9C3052968C004F73BC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bowen.TaskCatchupUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TaskCatchup;
-			};
-			name = Debug;
-		};
-		8227FE9D3052968C004F73BC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bowen.TaskCatchupUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TaskCatchup;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -547,15 +449,6 @@
 			buildConfigurations = (
 				8227FE993052968C004F73BC /* Debug */,
 				8227FE9A3052968C004F73BC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8227FE9B3052968C004F73BC /* Build configuration list for PBXNativeTarget "TaskCatchupUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8227FE9C3052968C004F73BC /* Debug */,
-				8227FE9D3052968C004F73BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
